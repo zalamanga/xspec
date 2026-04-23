@@ -70,7 +70,7 @@ try {
 }
 
 // ── Send email notification ─────────────────────────────────────────────────
-$to      = 'rafik@xspectechnology.com';
+$to      = 'info@xspectechnology.com';
 $subject = '[XSpec] Brochure Request – ' . $product['brand_name'] . ' ' . $product['name'];
 
 $body = "
@@ -139,7 +139,7 @@ $body = "
 
 $headers  = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: XSpec Website <noreply@xspecmalaysia.com>\r\n";
+$headers .= "From: XSpec Website <no-reply@xspectechnology.com>\r\n";
 $headers .= "Reply-To: " . $email . "\r\n";
 
 mail($to, $subject, $body, $headers);

@@ -43,7 +43,7 @@ $country_label = strtoupper($active_cc);
 $host = $_SERVER['HTTP_HOST'] ?? 'xspectechnology.com';
 
 // === Siapkan email ===
-$to      = 'test@xspec.com.my';
+$to      = 'info@xspectechnology.com';
 $subject = "[XSpec {$country_label}] New Contact Inquiry from " . $name;
 
 // Build HTML body
@@ -120,10 +120,9 @@ $body .= "
 ";
 
 // Email headers — Reply-To diset ke email user, jadi kalau admin reply langsung ke user
-$from_domain = preg_replace('/^www\./', '', $host);
 $headers  = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: XSpec Website <noreply@{$from_domain}>\r\n";
+$headers .= "From: XSpec Website <no-reply@xspectechnology.com>\r\n";
 $headers .= "Reply-To: " . htmlspecialchars($name) . " <" . $email . ">\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 
