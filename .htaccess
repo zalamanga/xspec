@@ -25,10 +25,10 @@
     RewriteRule \.sql$ - [F,L]
     RewriteRule ^config/ - [F,L]
 
-    # Redirect .php URLs ke clean URL (301) — kecuali admin, ajax, migrations
+    # Redirect .php URLs ke clean URL (301) — kecuali admin, ajax, migrations, process endpoints, sitemap
     RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
     RewriteCond %{REQUEST_URI} !^/(admin|ajax|migrations)/
-    RewriteCond %1 !^index$
+    RewriteCond %1 !^(index|process-contact|process-download|sitemap\.xml)$
     RewriteRule ^ /%1 [R=301,L,NE]
 
     # Redirect /index atau /index.php ke root

@@ -131,7 +131,7 @@ $popular_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
             <!-- Action Buttons -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-                <a href="index.php" 
+                <a href="/"
                    class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-lg font-display font-semibold text-lg transition-all hover:-translate-y-1 hover:shadow-xl inline-flex items-center gap-3 w-full sm:w-auto justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>

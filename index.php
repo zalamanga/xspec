@@ -189,8 +189,8 @@ include 'includes/header.php';
 
         <?php
 $href = $industry['slug'] === 'training-services'
-    ? 'training-services.php'
-    : 'category-brands.php?slug=' . urlencode($industry['slug']);
+    ? '/training'
+    : '/category/' . rawurlencode($industry['slug']);
 ?>
             <a href="<?php echo $href; ?>"
                 class="bg-white rounded-lg shadow-lg overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 group relative block">

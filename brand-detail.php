@@ -12,7 +12,7 @@ $active_cc = active_country();
 $brand_slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 
 if (empty($brand_slug)) {
-    header('Location: index.php');
+    header('Location: /');
     exit;
 }
 
@@ -37,7 +37,7 @@ $stmt->execute([':slug' => $brand_slug, ':cc' => $active_cc]);
 $brand = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$brand) {
-    header('Location: index.php');
+    header('Location: /');
     exit;
 }
 
@@ -100,7 +100,7 @@ foreach ($products as $key => $product) {
 
 if (empty($products)) {
     $redirect_slug = !empty($brand['category_slug']) ? $brand['category_slug'] : 'uncategorized';
-    header('Location: category-brands.php?slug=' . urlencode($redirect_slug));
+    header('Location: /category/' . rawurlencode($redirect_slug));
     exit;
 }
 
@@ -276,9 +276,9 @@ include 'includes/header.php';
         
         <!-- Back Button -->
         <div class="text-center">
-            <a href="<?php echo !empty($brand['category_slug']) && $brand['category_slug'] !== 'uncategorized' 
-                        ? 'category-brands.php?slug=' . urlencode($brand['category_slug']) 
-                        : 'index.php'; ?>" 
+            <a href="<?php echo !empty($brand['category_slug']) && $brand['category_slug'] !== 'uncategorized'
+                        ? '/category/' . rawurlencode($brand['category_slug'])
+                        : '/'; ?>"
                class="inline-flex items-center gap-3 bg-gray-200 hover:bg-gray-300 text-gray-800 px-8 py-4 rounded-xl font-bold text-lg transition-all">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>

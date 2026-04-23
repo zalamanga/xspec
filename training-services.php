@@ -125,7 +125,7 @@ include 'includes/header.php';
           $diff = (new DateTime($t['date_start']))->diff(new DateTime($t['date_end']))->days + 1;
         ?>
 
-        <a href="training-detail.php?id=<?= $t['id'] ?>"
+        <a href="/training/<?= (int)$t['id'] ?>"
            class="group flex items-stretch rounded-xl
                   <?= $t['is_featured'] ? 'border-2 border-primary' : 'border border-gray-200' ?>
                   bg-white overflow-hidden mb-3 relative

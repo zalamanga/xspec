@@ -35,6 +35,7 @@ $__page_image       = isset($og_image) ? $og_image : $__base_url . '/img/logo.pn
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
     <title><?php echo htmlspecialchars($__page_title); ?></title>
 
     <!-- Favicon -->

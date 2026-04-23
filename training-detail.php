@@ -21,7 +21,7 @@ if (!$training) {
     $training = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$training) {
-        header('Location: training-services.php');
+        header('Location: /training');
         exit;
     }
 }

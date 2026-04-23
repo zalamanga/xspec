@@ -12,7 +12,7 @@ $active_cc = active_country();
 $category_slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 
 if (empty($category_slug)) {
-    header('Location: index.php');
+    header('Location: /');
     exit;
 }
 
@@ -26,7 +26,7 @@ $stmt->execute([':slug' => $category_slug, ':cc' => $active_cc]);
 $category = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$category) {
-    header('Location: index.php');
+    header('Location: /');
     exit;
 }
 
@@ -128,7 +128,7 @@ include 'includes/header.php';
 
                             <!-- READ MORE BUTTON -->
                             <div class="text-center">
-                                <a href="brand-detail.php?slug=<?php echo urlencode($brand['slug']); ?>" 
+                                <a href="/brand/<?php echo rawurlencode($brand['slug']); ?>"
                                    class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-white font-semibold hover:bg-primary-dark transition-all hover:shadow-lg">
                                     Read More
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
