@@ -40,7 +40,7 @@
 
         <div class="border-t border-gray-700 pt-8 lg:pt-10 text-center">
             <p class="text-sm lg:text-base font-light">
-                Copyright <a href="https://scorpio.mschosting.com/interface/root#/login" target="_blank" rel="noopener" class="hover:text-primary transition-colors">©</a> 2026 XSpec Technology. All rights reserved. Design <a href="dashboard.php" class="hover:text-primary transition-colors">by</a> Rafik Muzakir
+                Copyright <a href="https://scorpio.mschosting.com/interface/root#/login" target="_blank" rel="noopener" class="hover:text-primary transition-colors">©</a> 2026 XSpec Technology. All rights reserved. Design <a href="/admin/" class="hover:text-primary transition-colors">by</a> Rafik Muzakir
             </p>
         </div>
     </div>
