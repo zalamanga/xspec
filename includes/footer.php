@@ -62,10 +62,19 @@
             </div>
             <h3 id="xNotifyTitle" class="text-xl font-display font-bold text-gray-800 mb-2">Success</h3>
             <p id="xNotifyMessage" class="text-gray-600 mb-6 leading-relaxed">Your message has been sent.</p>
-            <button onclick="closeXNotify()"
-                    class="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5">
-                OK
-            </button>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a id="xNotifyAction" href="#" target="_blank" rel="noopener"
+                   class="hidden bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5 inline-flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14L21 3m0 0h-7m7 0v7M5 5h4a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/>
+                    </svg>
+                    <span id="xNotifyActionLabel">Open</span>
+                </a>
+                <button id="xNotifyCloseBtn" onclick="closeXNotify()"
+                        class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-8 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:-translate-y-0.5">
+                    OK
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -102,6 +111,21 @@ function showXNotify(opts) {
     icon.innerHTML   = t.svg;
     title.textContent = opts.title   || (opts.type === 'error' ? 'Oops' : 'Success');
     msg.textContent   = opts.message || '';
+
+    // Optional action button (buat download, view, redirect, dll)
+    const action      = document.getElementById('xNotifyAction');
+    const actionLabel = document.getElementById('xNotifyActionLabel');
+    const closeBtn    = document.getElementById('xNotifyCloseBtn');
+    if (opts.actionUrl) {
+        action.href              = opts.actionUrl;
+        actionLabel.textContent  = opts.actionLabel || 'Open';
+        action.classList.remove('hidden');
+        if (closeBtn) closeBtn.textContent = 'Close';
+    } else {
+        action.classList.add('hidden');
+        action.removeAttribute('href');
+        if (closeBtn) closeBtn.textContent = 'OK';
+    }
 
     modal.classList.remove('hidden');
     modal.classList.add('flex');

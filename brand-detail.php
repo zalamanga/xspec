@@ -536,11 +536,14 @@ async function submitDownloadForm(event) {
             if (typeof showXNotify === 'function') {
                 showXNotify({
                     type: 'success',
-                    title: 'Download Ready',
-                    message: 'Thank you! Your brochure is opening in a new tab.'
+                    title: 'Brochure Ready',
+                    message: 'Thank you! Click the button below to open your brochure.',
+                    actionUrl: result.brochure_url,
+                    actionLabel: 'Open Brochure'
                 });
+            } else {
+                window.location.href = result.brochure_url;
             }
-            window.open(result.brochure_url, '_blank');
         } else {
             formError.textContent = result.message || 'An error occurred. Please try again.';
             formError.classList.remove('hidden');
