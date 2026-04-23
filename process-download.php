@@ -74,20 +74,21 @@ if (!$product || empty($product['brochure_file'])) {
 
 // ── Log to database ─────────────────────────────────────────────────────────
 try {
-    $query = "INSERT INTO download_logs 
+    $query = "INSERT INTO download_logs
                 (product_id, visitor_name, visitor_email, visitor_phone, visitor_company, remarks, ip_address, user_agent, created_at)
-              VALUES 
+              VALUES
                 (:product_id, :name, :email, :phone, :company, :remarks, :ip, :ua, NOW())";
     $stmt = $db->prepare($query);
-    $stmt->bindParam(':product_id', $product_id);
-    $stmt->bindParam(':name',       $name);
-    $stmt->bindParam(':email',      $email);
-    $stmt->bindParam(':phone',      $phone);
-    $stmt->bindParam(':company',    $company);
-    $stmt->bindParam(':remarks',    $remarks);
-    $stmt->bindParam(':ip',         $_SERVER['REMOTE_ADDR'] ?? '');
-    $stmt->bindParam(':ua',         $_SERVER['HTTP_USER_AGENT'] ?? '');
-    $stmt->execute();
+    $stmt->execute([
+        ':product_id' => $product_id,
+        ':name'       => $name,
+        ':email'      => $email,
+        ':phone'      => $phone,
+        ':company'    => $company,
+        ':remarks'    => $remarks,
+        ':ip'         => $_SERVER['REMOTE_ADDR']     ?? '',
+        ':ua'         => $_SERVER['HTTP_USER_AGENT'] ?? '',
+    ]);
 } catch (PDOException $e) {
     error_log('download_logs insert error: ' . $e->getMessage());
 }
