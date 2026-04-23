@@ -23,6 +23,7 @@ register_shutdown_function(function () {
 
 require_once 'config/database.php';
 require_once 'includes/country.php';
+require_once 'includes/mailer.php';
 
 // Bersihin output sebelum JSON (buang warning/notice kalau ada)
 if (ob_get_level()) ob_clean();
@@ -161,12 +162,11 @@ $body = "
 </html>
 ";
 
-$headers  = "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: XSpec Website <no-replys@xspectechnology.com>\r\n";
-$headers .= "Reply-To: " . $email . "\r\n";
-
-mail($to, $subject, $body, $headers);
+// Kirim via SMTP authenticated (PHPMailer)
+send_smtp_email($to, $subject, $body, [
+    'reply_to'      => $email,
+    'reply_to_name' => $name,
+]);
 
 // ── Build PDF viewer URL ────────────────────────────────────────────────────
 $brochure_path = $product['brochure_file'];

@@ -23,6 +23,7 @@ register_shutdown_function(function () {
 
 require_once 'config/database.php';
 require_once 'includes/country.php';
+require_once 'includes/mailer.php';
 
 if (ob_get_level()) ob_clean();
 header('Content-Type: application/json');
@@ -139,17 +140,13 @@ $body .= "
 </html>
 ";
 
-// Email headers — Reply-To diset ke email user, jadi kalau admin reply langsung ke user
-$headers  = "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: XSpec Website <no-replys@xspectechnology.com>\r\n";
-$headers .= "Reply-To: " . htmlspecialchars($name) . " <" . $email . ">\r\n";
-$headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+// Kirim via SMTP authenticated (PHPMailer)
+$result = send_smtp_email($to, $subject, $body, [
+    'reply_to'      => $email,
+    'reply_to_name' => $name,
+]);
 
-// Kirim
-$sent = @mail($to, $subject, $body, $headers);
-
-if ($sent) {
+if ($result['ok']) {
     echo json_encode([
         'success' => true,
         'message' => 'Thank you! Your message has been sent. We will get back to you soon.'
