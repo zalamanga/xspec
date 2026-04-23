@@ -1,6 +1,11 @@
 <?php
 // contact.php
-$title = "Contact - XSpec";
+$title            = "Contact Us - XSpec Malaysia";
+$meta_description = "Get in touch with XSpec Malaysia for inquiries about inspection technology, NDT equipment, training courses, or after-sales service. Reach our team via phone, email, or WhatsApp.";
+$breadcrumbs      = [
+    ['name' => 'Home',    'url' => '/'],
+    ['name' => 'Contact', 'url' => '/contact'],
+];
 $currentPage = 'contact';
 
 require_once 'config/database.php';

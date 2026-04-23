@@ -12,6 +12,7 @@ $country_info = active_country_info($db);
 $country_name = $country_info['name'] ?? 'Malaysia';
 
 $title = "XSpec " . $country_name . " - Excellent After Sales Service";
+$meta_description = "XSpec " . $country_name . " delivers cutting-edge inspection technology, NDT equipment, and training across Oil & Gas, Military, Bio-tech, and Medical sectors with excellent after-sales support in Southeast Asia.";
 $currentPage = 'home';
 
 // Categories tersedia di country aktif
@@ -207,7 +208,7 @@ $href = $industry['slug'] === 'training-services'
                         ? $category_images[$industry['slug']] 
                         : 'https://via.placeholder.com/600x400?text=' . urlencode($industry['name']);
                     ?>
-                    <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($industry['name']); ?>"
+                    <img src="<?php echo $img_src; ?>" alt="<?php echo htmlspecialchars($industry['name']); ?>" loading="lazy"
                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute top-3 left-0 bg-primary text-white px-4 py-1.5 text-xs sm:text-sm font-bold uppercase tracking-wide shadow-lg"
                         style="clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);">
@@ -268,7 +269,7 @@ $href = $industry['slug'] === 'training-services'
             <div class="relative">
                 <div
                     class="h-64 sm:h-80 lg:h-96 bg-white rounded-xl shadow-lg border-2 border-gray-100 overflow-hidden">
-                    <img src="img/aboutxspec.png" alt="XSpec <?php echo htmlspecialchars($country_name); ?> Office" class="w-full h-full object-cover">
+                    <img src="img/aboutxspec.png" alt="XSpec <?php echo htmlspecialchars($country_name); ?> Office" loading="lazy" class="w-full h-full object-cover">
                 </div>
                 <div class="absolute -bottom-6 -right-6 bg-primary text-white p-6 rounded-xl shadow-xl">
                     <div class="text-2xl font-bold">Since 2015</div>
@@ -323,7 +324,7 @@ $href = $industry['slug'] === 'training-services'
             ?>
             <div class="bg-white flex items-center justify-center p-6 lg:p-8 min-h-[140px] lg:min-h-[160px] hover:scale-105 transition-transform duration-300">
                 <img src="img/clients/client<?php echo $num; ?>.png"
-                     alt="<?php echo htmlspecialchars($name); ?>"
+                     alt="<?php echo htmlspecialchars($name); ?>" loading="lazy"
                      class="max-h-24 lg:max-h-28 w-auto object-contain">
             </div>
             <?php endforeach; ?>

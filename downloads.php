@@ -1,6 +1,11 @@
 <?php
 // downloads.php - DOWNLOAD CENTER (MODERN REDESIGN)
-$title = "Download Center - XSpec";
+$title            = "Download Center - XSpec Malaysia";
+$meta_description = "Download product brochures, technical datasheets, and training materials from XSpec Malaysia. Quick access to specifications for all our inspection and detection equipment.";
+$breadcrumbs      = [
+    ['name' => 'Home',      'url' => '/'],
+    ['name' => 'Downloads', 'url' => '/downloads'],
+];
 $currentPage = 'downloads';
 
 require_once 'config/database.php';

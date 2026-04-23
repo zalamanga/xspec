@@ -51,7 +51,14 @@ $stmt->execute([
 $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $__ci = active_country_info($db);
-$title = htmlspecialchars($category['name']) . " - XSpec " . ($__ci['name'] ?? 'Malaysia');
+$__country_name_ci = $__ci['name'] ?? 'Malaysia';
+$title             = htmlspecialchars($category['name']) . " Brands - XSpec " . $__country_name_ci;
+$brand_count       = count($brands ?? []);
+$meta_description  = "Explore " . $brand_count . " trusted " . htmlspecialchars($category['name']) . " brands available at XSpec " . $__country_name_ci . ". Premium inspection, detection, and analytical equipment with full after-sales support.";
+$breadcrumbs       = [
+    ['name' => 'Home',                               'url' => '/'],
+    ['name' => htmlspecialchars($category['name']),  'url' => '/category/' . rawurlencode($category['slug'])],
+];
 $currentPage = 'brands';
 
 include 'includes/head.php';
@@ -90,8 +97,8 @@ include 'includes/header.php';
                         <!-- Brand Logo -->
                         <div class="bg-gradient-to-br from-gray-100 to-gray-200 p-8 flex items-center justify-center min-h-[180px]">
                             <?php if (!empty($brand['logo'])): ?>
-                                <img src="<?php echo htmlspecialchars($brand['logo']); ?>" 
-                                     alt="<?php echo htmlspecialchars($brand['name']); ?>" 
+                                <img src="<?php echo htmlspecialchars($brand['logo']); ?>"
+                                     alt="<?php echo htmlspecialchars($brand['name']); ?>" loading="lazy"
                                      class="max-h-24 max-w-full object-contain">
                             <?php else: ?>
                                 <div class="text-center">

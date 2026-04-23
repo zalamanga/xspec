@@ -78,6 +78,33 @@ $__page_image       = isset($og_image) ? $og_image : $__base_url . '/img/logo.pn
       "sameAs": []
     }
     </script>
+
+    <?php if (!empty($breadcrumbs) && is_array($breadcrumbs)): ?>
+    <!-- BreadcrumbList Schema — bikin breadcrumb muncul di Google results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        <?php foreach ($breadcrumbs as $i => $bc): ?>
+        {
+          "@type": "ListItem",
+          "position": <?php echo $i + 1; ?>,
+          "name": "<?php echo addslashes($bc['name']); ?>",
+          "item": "<?php echo $__base_url . $bc['url']; ?>"
+        }<?php echo $i < count($breadcrumbs) - 1 ? ',' : ''; ?>
+        <?php endforeach; ?>
+      ]
+    }
+    </script>
+    <?php endif; ?>
+
+    <?php if (!empty($json_ld_extra)): ?>
+    <!-- Extra structured data (Product / Event / etc.) -->
+    <script type="application/ld+json">
+    <?php echo $json_ld_extra; ?>
+    </script>
+    <?php endif; ?>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 

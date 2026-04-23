@@ -9,7 +9,12 @@ $db  = $pdo;  // biar header.php bisa pakai $db
 
 $active_cc = active_country();
 
-$title       = "Training & Services - XSpec";
+$title            = "Training & Services - XSpec Malaysia";
+$meta_description = "Professional training courses and technical services by XSpec Malaysia — NDT, inspection, and instrument calibration training delivered by certified experts across Southeast Asia.";
+$breadcrumbs      = [
+    ['name' => 'Home',                'url' => '/'],
+    ['name' => 'Training & Services', 'url' => '/training'],
+];
 $currentPage = 'training';
 
 $stmt = $pdo->prepare(
@@ -243,7 +248,7 @@ include 'includes/header.php';
           </div>
         </div>
         <div class="mt-6 rounded-xl overflow-hidden h-48 border border-white/10">
-          <img src="img/training/office-map.jpg" alt="XSpec Office"
+          <img src="img/training/office-map.jpg" alt="XSpec Office" loading="lazy"
                class="w-full h-full object-cover opacity-70"
                onerror="this.parentElement.style.display='none'">
         </div>

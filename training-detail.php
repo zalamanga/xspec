@@ -39,8 +39,66 @@ $waText = urlencode('Hi Dr. Nadia, I\'m interested in ' . $training['title']);
 $waLink = 'https://wa.me/60127836893?text=' . $waText;
 
 $__ci        = active_country_info($db);
-$title       = $training['title'] . ' – XSpec ' . ($__ci['name'] ?? 'Malaysia');
+$__country_name_ci = $__ci['name'] ?? 'Malaysia';
+$title       = $training['title'] . ' – XSpec ' . $__country_name_ci;
 $currentPage = 'training';
+
+// SEO meta description
+$desc_src = trim(strip_tags($training['description'] ?? ''));
+if (empty($desc_src)) {
+    $desc_src = $training['title'] . ' - Professional training by XSpec ' . $__country_name_ci . '. ' . (!empty($training['date_start']) ? date('d M Y', strtotime($training['date_start'])) : '');
+}
+$meta_description = mb_substr($desc_src, 0, 160);
+
+// OG image: pakai poster training kalau ada
+if (!empty($training['image'])) {
+    $__scheme_t = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $og_image   = $__scheme_t . '://' . ($_SERVER['HTTP_HOST'] ?? 'xspectechnology.com') . '/' . ltrim($training['image'], '/');
+}
+
+// Breadcrumbs
+$breadcrumbs = [
+    ['name' => 'Home',                          'url' => '/'],
+    ['name' => 'Training & Services',           'url' => '/training'],
+    ['name' => htmlspecialchars($training['title']), 'url' => '/training/' . (int)$training['id']],
+];
+
+// Event schema JSON-LD — bikin training muncul di Google dengan info tanggal, lokasi, dll
+if (!empty($training['date_start'])) {
+    $__scheme_t2 = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $__base_t    = $__scheme_t2 . '://' . ($_SERVER['HTTP_HOST'] ?? 'xspectechnology.com');
+    $event_data = [
+        '@context'    => 'https://schema.org',
+        '@type'       => 'Event',
+        'name'        => $training['title'],
+        'description' => $desc_src,
+        'startDate'   => date('c', strtotime($training['date_start'])),
+        'endDate'     => !empty($training['date_end']) ? date('c', strtotime($training['date_end'])) : date('c', strtotime($training['date_start'])),
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+        'location'    => [
+            '@type'   => 'Place',
+            'name'    => $training['location'] ?? ('XSpec ' . $__country_name_ci),
+            'address' => $training['location'] ?? $__country_name_ci,
+        ],
+        'organizer'   => [
+            '@type' => 'Organization',
+            'name'  => 'XSpec ' . $__country_name_ci,
+            'url'   => $__base_t,
+        ],
+        'image'       => $og_image ?? ($__base_t . '/img/logo.png'),
+    ];
+    if (!empty($training['price'])) {
+        $event_data['offers'] = [
+            '@type'         => 'Offer',
+            'price'         => (string)$training['price'],
+            'priceCurrency' => 'MYR',
+            'availability'  => 'https://schema.org/InStock',
+            'url'           => $__base_t . '/training/' . (int)$training['id'],
+        ];
+    }
+    $json_ld_extra = json_encode($event_data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+}
 
 include 'includes/head.php';
 include 'includes/header.php';

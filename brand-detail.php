@@ -105,9 +105,66 @@ if (empty($products)) {
     exit;
 }
 
-$__ci  = active_country_info($db);
-$title = htmlspecialchars($brand['name']) . " - XSpec " . ($__ci['name'] ?? 'Malaysia');
-$currentPage = 'brand-detail';
+$__ci               = active_country_info($db);
+$__country_name_ci  = $__ci['name'] ?? 'Malaysia';
+$title              = htmlspecialchars($brand['name']) . " - " . htmlspecialchars($brand['category_name']) . " | XSpec " . $__country_name_ci;
+$currentPage        = 'brand-detail';
+
+// SEO: dynamic meta description
+$short_desc = trim(strip_tags($brand['short_description']));
+if (empty($short_desc)) {
+    $short_desc = "Discover " . htmlspecialchars($brand['name']) . " products for " . htmlspecialchars($brand['category_name']) . " available at XSpec " . $__country_name_ci . ".";
+}
+$meta_description = mb_substr($short_desc, 0, 160);
+
+// OG image: pakai brand logo kalau ada, fallback ke company logo
+if (!empty($brand['logo'])) {
+    $og_image = $__base_url ?? ($__scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'xspectechnology.com'));
+    $og_image .= '/' . ltrim($brand['logo'], '/');
+}
+
+// Breadcrumbs
+$breadcrumbs = [
+    ['name' => 'Home', 'url' => '/'],
+];
+if (!empty($brand['category_slug']) && $brand['category_slug'] !== 'uncategorized') {
+    $breadcrumbs[] = [
+        'name' => htmlspecialchars($brand['category_name']),
+        'url'  => '/category/' . rawurlencode($brand['category_slug']),
+    ];
+}
+$breadcrumbs[] = [
+    'name' => htmlspecialchars($brand['name']),
+    'url'  => '/brand/' . rawurlencode($brand['slug']),
+];
+
+// Product schema JSON-LD: ItemList of all products in this brand
+if (!empty($products)) {
+    $__scheme_2 = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $__base_2   = $__scheme_2 . '://' . ($_SERVER['HTTP_HOST'] ?? 'xspectechnology.com');
+    $product_items = [];
+    foreach ($products as $idx => $p) {
+        $img = !empty($p['images'][0]['image_path']) ? $__base_2 . '/' . ltrim($p['images'][0]['image_path'], '/') : $__base_2 . '/img/logo.png';
+        $product_items[] = [
+            '@type'    => 'ListItem',
+            'position' => $idx + 1,
+            'item'     => [
+                '@type'       => 'Product',
+                'name'        => $p['name'],
+                'description' => trim(strip_tags($p['short_description'] ?: $p['description'])) ?: ($p['name'] . ' by ' . $brand['name']),
+                'brand'       => ['@type' => 'Brand', 'name' => $brand['name']],
+                'image'       => $img,
+                'category'    => $brand['category_name'],
+            ],
+        ];
+    }
+    $json_ld_extra = json_encode([
+        '@context'        => 'https://schema.org',
+        '@type'           => 'ItemList',
+        'name'            => $brand['name'] . ' Products',
+        'itemListElement' => $product_items,
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+}
 
 include 'includes/head.php';
 include 'includes/header.php';
@@ -184,8 +241,8 @@ include 'includes/header.php';
                         <?php foreach ($product['images'] as $img_index => $image): ?>
                         <div onclick="changeImage(<?php echo $prod_index; ?>, <?php echo $img_index; ?>)"
                              class="thumbnail-<?php echo $prod_index; ?> flex-shrink-0 w-[60px] h-[60px] bg-gray-100 rounded-md overflow-hidden cursor-pointer border-2 transition-all hover:scale-105 <?php echo $img_index === 0 ? 'border-primary' : 'border-transparent'; ?>">
-                            <img src="<?php echo htmlspecialchars($image['image_path']); ?>" 
-                                 alt="Thumbnail <?php echo ($img_index + 1); ?>" 
+                            <img src="<?php echo htmlspecialchars($image['image_path']); ?>"
+                                 alt="Thumbnail <?php echo ($img_index + 1); ?>" loading="lazy"
                                  class="w-full h-full object-cover">
                         </div>
                         <?php endforeach; ?>
