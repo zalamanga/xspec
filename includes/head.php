@@ -48,6 +48,7 @@ $__page_image       = isset($og_image) ? $og_image : $__base_url . '/img/logo.pn
     <meta name="keywords" content="<?php echo htmlspecialchars($__brand_full); ?>, NDT, inspection technology, after sales service, oil and gas, military defence, bio-tech laboratory, medical healthcare">
     <meta name="author" content="<?php echo htmlspecialchars($__brand_full); ?>">
     <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="x1IS14PVAtyYfyswpoxUUs0n2MeJIM8Gjz7T3xj3Wao">
     <link rel="canonical" href="<?php echo htmlspecialchars($__canonical); ?>">
 
     <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
