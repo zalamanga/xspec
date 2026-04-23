@@ -94,7 +94,7 @@ try {
 }
 
 // ── Send email notification ─────────────────────────────────────────────────
-$to      = 'info@xspectechnology.com';
+$to      = 'rafikmas78@gmail.com';
 $subject = '[XSpec] Brochure Request – ' . $product['brand_name'] . ' ' . $product['name'];
 
 $body = "

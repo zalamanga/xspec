@@ -256,14 +256,15 @@ include 'includes/header.php';
                         </div>
                         <?php endif; ?>
 
-                        <!-- Tombol Download Brochure -->
+                        <!-- Tombol View Brochure -->
                         <?php if (!empty($product['brochure_file'])): ?>
-                        <button onclick="openDownloadModal(<?php echo $prod_index; ?>)" 
+                        <button onclick="openDownloadModal(<?php echo $prod_index; ?>)"
                                 class="w-full bg-primary hover:bg-primary-dark text-white px-4 py-3 rounded-lg font-bold text-base transition-all hover:shadow-xl flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
-                            Download Brochure
+                            View Brochure
                         </button>
                         <?php endif; ?>
 
@@ -304,7 +305,7 @@ include 'includes/header.php';
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            <h3 class="text-3xl font-bold mb-2">Download Brochure</h3>
+            <h3 class="text-3xl font-bold mb-2">View Brochure</h3>
             <p class="text-white/90 text-lg">Please fill in your details</p>
         </div>
 
@@ -362,9 +363,10 @@ include 'includes/header.php';
                 <button type="submit" id="submitDownloadBtn"
                         class="w-full bg-primary hover:bg-primary-dark text-white px-8 py-5 rounded-xl font-bold text-xl transition-all hover:shadow-2xl flex items-center justify-center gap-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                     </svg>
-                    <span id="submitBtnText">Download Now</span>
+                    <span id="submitBtnText">View Now</span>
                 </button>
 
                 <div id="formError" class="hidden mt-6 p-5 bg-red-50 border-2 border-red-200 rounded-xl text-red-700 text-base font-semibold"></div>
@@ -501,21 +503,25 @@ function closeDownloadModal() {
     }, 200);
 }
 
-// Submit download form
+// Submit view form
 async function submitDownloadForm(event) {
     event.preventDefault();
-    
+
     const submitBtn     = document.getElementById('submitDownloadBtn');
     const submitBtnText = document.getElementById('submitBtnText');
     const formError     = document.getElementById('formError');
-    
+
+    // Buka tab kosong SEKARANG (masih di dalam user-gesture klik submit)
+    // supaya browser gak nge-block popup nanti. URL-nya di-set setelah fetch.
+    const pdfTab = window.open('', '_blank');
+
     submitBtn.disabled         = true;
     submitBtnText.textContent  = 'Processing...';
     formError.classList.add('hidden');
-    
+
     const formData = new FormData(event.target);
     formData.append('action', 'submit_download');
-    
+
     try {
         const response = await fetch('/process-download.php', {
             method: 'POST',
@@ -533,29 +539,35 @@ async function submitDownloadForm(event) {
 
         if (result.success) {
             closeDownloadModal();
-            if (typeof showXNotify === 'function') {
+            if (pdfTab && !pdfTab.closed) {
+                // Arahkan tab yang tadi kita reserve ke URL PDF
+                pdfTab.location.href = result.brochure_url;
+            } else if (typeof showXNotify === 'function') {
+                // Fallback: popup ke-block sama browser -> kasih tombol manual
                 showXNotify({
                     type: 'success',
                     title: 'Brochure Ready',
-                    message: 'Thank you! Click the button below to open your brochure.',
+                    message: 'Click the button below to view your brochure.',
                     actionUrl: result.brochure_url,
-                    actionLabel: 'Open Brochure'
+                    actionLabel: 'View Brochure'
                 });
             } else {
                 window.location.href = result.brochure_url;
             }
         } else {
+            if (pdfTab && !pdfTab.closed) pdfTab.close();
             formError.textContent = result.message || 'An error occurred. Please try again.';
             formError.classList.remove('hidden');
         }
 
     } catch (error) {
-        console.error('Download form error:', error);
+        if (pdfTab && !pdfTab.closed) pdfTab.close();
+        console.error('View form error:', error);
         formError.textContent = error.message || 'Network error. Please check your connection and try again.';
         formError.classList.remove('hidden');
     } finally {
         submitBtn.disabled        = false;
-        submitBtnText.textContent = 'Download Now';
+        submitBtnText.textContent = 'View Now';
     }
 }
 
