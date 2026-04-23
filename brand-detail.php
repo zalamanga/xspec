@@ -517,13 +517,20 @@ async function submitDownloadForm(event) {
     formData.append('action', 'submit_download');
     
     try {
-        const response = await fetch('process-download.php', {
+        const response = await fetch('/process-download.php', {
             method: 'POST',
             body: formData
         });
-        
-        const result = await response.json();
-        
+
+        const text = await response.text();
+        let result;
+        try {
+            result = JSON.parse(text);
+        } catch (parseErr) {
+            console.error('Server returned non-JSON:', text);
+            throw new Error('Server error (status ' + response.status + '). Check browser console for details.');
+        }
+
         if (result.success) {
             closeDownloadModal();
             alert('Thank you! Your brochure download will start now.');
@@ -532,9 +539,10 @@ async function submitDownloadForm(event) {
             formError.textContent = result.message || 'An error occurred. Please try again.';
             formError.classList.remove('hidden');
         }
-        
+
     } catch (error) {
-        formError.textContent = 'Network error. Please check your connection and try again.';
+        console.error('Download form error:', error);
+        formError.textContent = error.message || 'Network error. Please check your connection and try again.';
         formError.classList.remove('hidden');
     } finally {
         submitBtn.disabled        = false;

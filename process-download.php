@@ -1,8 +1,15 @@
 <?php
 // process-download.php
+ob_start();
+error_reporting(E_ALL);
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+
 require_once 'config/database.php';
 require_once 'includes/country.php';
 
+// Bersihin output sebelum JSON (buang warning/notice kalau ada)
+ob_clean();
 header('Content-Type: application/json');
 
 $database  = new Database();
