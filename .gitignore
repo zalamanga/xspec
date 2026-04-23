@@ -1,0 +1,23 @@
+# Logs
+error_log
+*.log
+
+# Database dumps
+*.sql
+
+# User-uploaded content (kelola di server, jangan di-track)
+uploads/*
+!uploads/.gitkeep
+pdf/*
+!pdf/.gitkeep
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Env & secrets (kalau suatu saat migrasi ke .env)
+.env
+.env.local

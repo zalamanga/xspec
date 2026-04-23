@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/xspectec/public_html/
+    - /usr/bin/rsync -av --exclude='.git/' --exclude='.gitignore' --exclude='.cpanel.yml' --exclude='uploads/' --exclude='pdf/' --exclude='error_log' --exclude='*.sql' ./ $DEPLOYPATH
