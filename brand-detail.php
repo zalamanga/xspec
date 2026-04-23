@@ -341,13 +341,22 @@ include 'includes/header.php';
                            placeholder="+60 12-345 6789">
                 </div>
 
-                <div class="mb-8">
+                <div class="mb-6">
                     <label class="block text-gray-700 font-bold mb-3 text-lg">
                         Company Name <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="user_company" name="company" required 
+                    <input type="text" id="user_company" name="company" required
                            class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg"
                            placeholder="Your company name">
+                </div>
+
+                <div class="mb-8">
+                    <label class="block text-gray-700 font-bold mb-3 text-lg">
+                        Remarks <span class="text-gray-400 text-base font-normal">(optional)</span>
+                    </label>
+                    <textarea id="user_remarks" name="remarks" rows="3"
+                              class="w-full px-5 py-4 border-2 border-gray-300 rounded-xl focus:border-primary focus:outline-none transition-colors text-lg resize-none"
+                              placeholder="Any notes or special requests..."></textarea>
                 </div>
 
                 <button type="submit" id="submitDownloadBtn"
