@@ -21,4 +21,3 @@ Thumbs.db
 # Env & secrets (kalau suatu saat migrasi ke .env)
 .env
 .env.local
-config/email.php
