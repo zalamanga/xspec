@@ -9,21 +9,19 @@ $db  = $pdo;
 $active_cc = active_country();
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
+if ($id <= 0) {
+    header('Location: /training');
+    exit;
+}
+
 $stmt = $pdo->prepare("SELECT * FROM trainings WHERE id = ? AND is_active = 1 AND country_code = ?");
 $stmt->execute([$id, $active_cc]);
 $training = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$training) {
-    $stmt = $pdo->prepare(
-        "SELECT * FROM trainings WHERE is_active = 1 AND country_code = ? ORDER BY date_start ASC LIMIT 1"
-    );
-    $stmt->execute([$active_cc]);
-    $training = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$training) {
-        header('Location: /training');
-        exit;
-    }
+    http_response_code(404);
+    include __DIR__ . '/404.php';
+    exit;
 }
 
 function fmtPrice($val) {
