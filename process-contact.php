@@ -122,7 +122,7 @@ $body .= "
 // Email headers — Reply-To diset ke email user, jadi kalau admin reply langsung ke user
 $headers  = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: XSpec Website <no-reply@xspectechnology.com>\r\n";
+$headers .= "From: XSpec Website <no-replys@xspectechnology.com>\r\n";
 $headers .= "Reply-To: " . htmlspecialchars($name) . " <" . $email . ">\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 

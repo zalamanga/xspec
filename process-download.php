@@ -139,7 +139,7 @@ $body = "
 
 $headers  = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: XSpec Website <no-reply@xspectechnology.com>\r\n";
+$headers .= "From: XSpec Website <no-replys@xspectechnology.com>\r\n";
 $headers .= "Reply-To: " . $email . "\r\n";
 
 mail($to, $subject, $body, $headers);
