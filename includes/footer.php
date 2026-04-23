@@ -22,11 +22,11 @@
             <div>
                 <h3 class="text-2xl lg:text-3xl font-display font-bold text-white mb-6">Quick Links</h3>
                 <ul class="space-y-3 lg:space-y-4">
-                    <li><a href="category-brands.php?slug=oil-gas-marine"            class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Oil, Gas & Marine</a></li>
-                    <li><a href="category-brands.php?slug=military-defence-security" class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Military, Defence & Security</a></li>
-                    <li><a href="category-brands.php?slug=bio-tech-laboratory"       class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Bio-tech & Laboratory</a></li>
-                    <li><a href="category-brands.php?slug=medical-healthcare"        class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Medical & Healthcare</a></li>
-                    <li><a href="#contact"                                            class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Contact</a></li>
+                    <li><a href="/category/oil-gas-marine"            class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Oil, Gas & Marine</a></li>
+                    <li><a href="/category/military-defence-security" class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Military, Defence & Security</a></li>
+                    <li><a href="/category/bio-tech-laboratory"       class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Bio-tech & Laboratory</a></li>
+                    <li><a href="/category/medical-healthcare"        class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Medical & Healthcare</a></li>
+                    <li><a href="/contact"                             class="text-base lg:text-lg font-light hover:text-primary hover:pl-2 transition-all duration-200 inline-block">Contact</a></li>
                 </ul>
             </div>
 

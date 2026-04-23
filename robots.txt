@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Block admin / internal paths
+Disallow: /admin/
+Disallow: /ajax/
+Disallow: /migrations/
+Disallow: /config/
+Disallow: /includes/
+Disallow: /dashboard
+Disallow: /dashboard.php
+Disallow: /logout
+Disallow: /logout.php
+Disallow: /product-form
+Disallow: /training-form
+Disallow: /process-contact
+Disallow: /process-download
+
+# Block leftover WordPress paths (kalau masih ada)
+Disallow: /wp-content/
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+
+Sitemap: https://xspectechnology.com/sitemap.xml

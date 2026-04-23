@@ -53,8 +53,8 @@ foreach ($nav_all_brands as $nav_brand) {
                 
                 <!-- Logo + Country Label -->
                 <div class="flex-shrink-0 flex items-center gap-3 sm:gap-4">
-                    <a href="index.php" class="flex-shrink-0">
-                        <img src="img/logo.png" alt="XSpec <?php echo htmlspecialchars($__country_name); ?>" class="h-10 sm:h-16 lg:h-20 w-auto">
+                    <a href="/" class="flex-shrink-0">
+                        <img src="/img/logo.png" alt="XSpec <?php echo htmlspecialchars($__country_name); ?>" class="h-10 sm:h-16 lg:h-20 w-auto">
                     </a>
                     <div class="hidden sm:flex flex-col leading-tight border-l-2 border-primary pl-3 sm:pl-4">
                         <span class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-gray-400 font-semibold">XSpec</span>
@@ -105,7 +105,7 @@ foreach ($nav_all_brands as $nav_brand) {
                     </div>
 
                     <!-- Download Button -->
-                    <a href="downloads.php" class="bg-primary hover:bg-primary-dark text-white px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-lg font-display font-semibold text-xs sm:text-sm lg:text-base transition-all hover:-translate-y-0.5 hover:shadow-lg inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
+                    <a href="/downloads" class="bg-primary hover:bg-primary-dark text-white px-3 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-lg font-display font-semibold text-xs sm:text-sm lg:text-base transition-all hover:-translate-y-0.5 hover:shadow-lg inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
                         <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
@@ -121,20 +121,20 @@ foreach ($nav_all_brands as $nav_brand) {
         <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <ul class="flex items-center justify-between gap-0">
                 <li>
-                    <a href="index.php" class="block px-2 py-4 text-base font-display font-medium uppercase tracking-normal hover:bg-gray-50 hover:text-primary transition-colors whitespace-nowrap">
+                    <a href="/" class="block px-2 py-4 text-base font-display font-medium uppercase tracking-normal hover:bg-gray-50 hover:text-primary transition-colors whitespace-nowrap">
                         Home
                     </a>
                 </li>
 
                 <?php foreach ($nav_categories as $nav_category): ?>
-                    <?php 
+                    <?php
                     $category_has_brands = isset($nav_brands_by_category[$nav_category['id']]) && count($nav_brands_by_category[$nav_category['id']]) > 0;
-                    
+
                     if ($category_has_brands):
                         $category_brands = $nav_brands_by_category[$nav_category['id']];
                     ?>
                     <li class="relative group">
-                        <a href="category-brands.php?slug=<?php echo urlencode($nav_category['slug']); ?>" 
+                        <a href="/category/<?php echo urlencode($nav_category['slug']); ?>"
                            class="px-2 py-4 text-base font-display font-medium uppercase tracking-normal hover:bg-gray-50 hover:text-primary transition-colors flex items-center gap-1 whitespace-nowrap">
                             <span><?php echo htmlspecialchars($nav_category['name']); ?></span>
                             <svg class="w-3 h-3 flex-shrink-0 transition-transform group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
@@ -144,7 +144,7 @@ foreach ($nav_all_brands as $nav_brand) {
                         <ul class="hidden group-hover:block absolute top-full left-0 bg-white min-w-[240px] shadow-xl border-t-4 border-primary z-50">
                             <?php foreach ($category_brands as $index => $nav_brand): ?>
                                 <li>
-                                    <a href="brand-detail.php?slug=<?php echo urlencode($nav_brand['slug']); ?>" 
+                                    <a href="/brand/<?php echo urlencode($nav_brand['slug']); ?>"
                                        class="block px-6 py-3 text-sm hover:bg-gray-50 hover:text-primary hover:pl-8 transition-all <?php echo ($index < count($category_brands) - 1) ? 'border-b border-gray-100' : ''; ?>">
                                         <?php echo htmlspecialchars($nav_brand['name']); ?>
                                     </a>
@@ -156,7 +156,7 @@ foreach ($nav_all_brands as $nav_brand) {
                 <?php endforeach; ?>
 
                 <li>
-                    <a href="training-services.php" class="block px-2 py-4 text-base font-display font-medium uppercase tracking-normal hover:bg-gray-50 hover:text-primary transition-colors whitespace-nowrap">
+                    <a href="/training" class="block px-2 py-4 text-base font-display font-medium uppercase tracking-normal hover:bg-gray-50 hover:text-primary transition-colors whitespace-nowrap">
                         Training & Services
                     </a>
                 </li>
@@ -183,28 +183,28 @@ foreach ($nav_all_brands as $nav_brand) {
 
             <ul id="mobileMenu" class="hidden flex-col w-full bg-white shadow-lg absolute left-0 top-full max-h-[70vh] overflow-y-auto z-50">
                 <li>
-                    <a href="index.php" onclick="closeMobileMenu()" class="block px-4 py-4 text-sm font-display font-medium uppercase tracking-wide hover:bg-gray-50 hover:text-primary transition-colors border-b border-gray-100">
+                    <a href="/" onclick="closeMobileMenu()" class="block px-4 py-4 text-sm font-display font-medium uppercase tracking-wide hover:bg-gray-50 hover:text-primary transition-colors border-b border-gray-100">
                         Home
                     </a>
                 </li>
 
                 <?php foreach ($nav_categories as $nav_category): ?>
-                    <?php 
+                    <?php
                     $category_has_brands = isset($nav_brands_by_category[$nav_category['id']]) && count($nav_brands_by_category[$nav_category['id']]) > 0;
-                    
+
                     if ($category_has_brands):
                         $category_brands = $nav_brands_by_category[$nav_category['id']];
                         $mobile_id = 'mobile-cat-' . $nav_category['id'];
                     ?>
                     <li class="border-b border-gray-100">
                         <div class="flex items-center">
-                            <a href="category-brands.php?slug=<?php echo urlencode($nav_category['slug']); ?>" 
+                            <a href="/category/<?php echo urlencode($nav_category['slug']); ?>"
                                onclick="closeMobileMenu()"
                                class="flex-1 px-4 py-4 text-sm font-display font-medium uppercase tracking-wide hover:bg-gray-50 hover:text-primary transition-colors">
                                 <?php echo htmlspecialchars($nav_category['name']); ?>
                             </a>
-                            <button type="button" 
-                                    onclick="toggleMobileDropdown('<?php echo $mobile_id; ?>'); event.stopPropagation();" 
+                            <button type="button"
+                                    onclick="toggleMobileDropdown('<?php echo $mobile_id; ?>'); event.stopPropagation();"
                                     class="px-4 py-4 hover:bg-gray-50 transition-colors">
                                 <svg id="<?php echo $mobile_id; ?>-icon" class="w-5 h-5 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -214,8 +214,8 @@ foreach ($nav_all_brands as $nav_brand) {
                         <ul id="<?php echo $mobile_id; ?>" class="hidden bg-gray-50">
                             <?php foreach ($category_brands as $brand_index => $nav_brand): ?>
                                 <li>
-                                    <a href="brand-detail.php?slug=<?php echo urlencode($nav_brand['slug']); ?>" 
-                                       onclick="closeMobileMenu()" 
+                                    <a href="/brand/<?php echo urlencode($nav_brand['slug']); ?>"
+                                       onclick="closeMobileMenu()"
                                        class="block px-8 py-3 text-sm hover:bg-gray-100 hover:text-primary transition-all <?php echo ($brand_index < count($category_brands) - 1) ? 'border-b border-gray-200' : ''; ?>">
                                         <?php echo htmlspecialchars($nav_brand['name']); ?>
                                     </a>
@@ -227,7 +227,7 @@ foreach ($nav_all_brands as $nav_brand) {
                 <?php endforeach; ?>
 
                 <li>
-                    <a href="training-services.php" onclick="closeMobileMenu()" class="block px-4 py-4 text-sm font-display font-medium uppercase tracking-wide hover:bg-gray-50 hover:text-primary transition-colors border-b border-gray-100">
+                    <a href="/training" onclick="closeMobileMenu()" class="block px-4 py-4 text-sm font-display font-medium uppercase tracking-wide hover:bg-gray-50 hover:text-primary transition-colors border-b border-gray-100">
                         Training & Services
                     </a>
                 </li>

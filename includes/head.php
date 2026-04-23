@@ -17,6 +17,17 @@ if (!isset($__country_name)) {
     }
 }
 $__brand_full = 'XSpec ' . $__country_name;
+
+// SEO helpers
+$__scheme   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$__host     = $_SERVER['HTTP_HOST'] ?? 'xspectechnology.com';
+$__base_url = $__scheme . '://' . $__host;
+$__path     = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+$__canonical = $__base_url . $__path;
+
+$__page_title       = isset($title) ? $title : $__brand_full . ' - Excellent After Sales Service';
+$__page_description = isset($meta_description) ? $meta_description : $__brand_full . ' provides excellent after sales service and innovative technology solutions across Southeast Asia.';
+$__page_image       = isset($og_image) ? $og_image : $__base_url . '/img/logo.png';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,17 +35,48 @@ $__brand_full = 'XSpec ' . $__country_name;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($title) ? $title : $__brand_full . ' - Excellent After Sales Service'; ?></title>
-<link rel="icon" type="image/png" sizes="32x32" href="/xspec/img/logo.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/xspec/img/logo.png">
-<link rel="apple-touch-icon" href="/xspec/img/logo.png">
+    <title><?php echo htmlspecialchars($__page_title); ?></title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/img/logo.png">
+    <link rel="apple-touch-icon" href="/img/logo.png">
 
-    <meta name="description" content="<?php echo htmlspecialchars($__brand_full); ?> provides excellent after sales service and innovative technology solutions.">
-    <meta name="keywords" content="<?php echo htmlspecialchars($__brand_full); ?>, NDT, inspection technology, after sales service">
+    <!-- SEO -->
+    <meta name="description" content="<?php echo htmlspecialchars($__page_description); ?>">
+    <meta name="keywords" content="<?php echo htmlspecialchars($__brand_full); ?>, NDT, inspection technology, after sales service, oil and gas, military defence, bio-tech laboratory, medical healthcare">
     <meta name="author" content="<?php echo htmlspecialchars($__brand_full); ?>">
     <meta name="robots" content="index, follow">
+    <link rel="canonical" href="<?php echo htmlspecialchars($__canonical); ?>">
+
+    <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+    <meta property="og:type"        content="website">
+    <meta property="og:site_name"   content="<?php echo htmlspecialchars($__brand_full); ?>">
+    <meta property="og:title"       content="<?php echo htmlspecialchars($__page_title); ?>">
+    <meta property="og:description" content="<?php echo htmlspecialchars($__page_description); ?>">
+    <meta property="og:image"       content="<?php echo htmlspecialchars($__page_image); ?>">
+    <meta property="og:url"         content="<?php echo htmlspecialchars($__canonical); ?>">
+    <meta property="og:locale"      content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="<?php echo htmlspecialchars($__page_title); ?>">
+    <meta name="twitter:description" content="<?php echo htmlspecialchars($__page_description); ?>">
+    <meta name="twitter:image"       content="<?php echo htmlspecialchars($__page_image); ?>">
+
+    <!-- Structured Data (Organization) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "<?php echo addslashes($__brand_full); ?>",
+      "url": "<?php echo $__base_url; ?>",
+      "logo": "<?php echo $__base_url; ?>/img/logo.png",
+      "description": "<?php echo addslashes($__page_description); ?>",
+      "areaServed": ["Malaysia", "Singapore", "Indonesia", "Southeast Asia"],
+      "sameAs": []
+    }
+    </script>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
