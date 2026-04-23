@@ -533,7 +533,13 @@ async function submitDownloadForm(event) {
 
         if (result.success) {
             closeDownloadModal();
-            alert('Thank you! Your brochure download will start now.');
+            if (typeof showXNotify === 'function') {
+                showXNotify({
+                    type: 'success',
+                    title: 'Download Ready',
+                    message: 'Thank you! Your brochure is opening in a new tab.'
+                });
+            }
             window.open(result.brochure_url, '_blank');
         } else {
             formError.textContent = result.message || 'An error occurred. Please try again.';
