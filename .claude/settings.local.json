@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(curl -sL -o lib/PHPMailer/src/PHPMailer.php https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.9.1/src/PHPMailer.php)",
-      "Bash(curl -sL -o lib/PHPMailer/src/SMTP.php https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.9.1/src/SMTP.php)",
-      "Bash(curl -sL -o lib/PHPMailer/src/Exception.php https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.9.1/src/Exception.php)"
-    ]
-  }
-}

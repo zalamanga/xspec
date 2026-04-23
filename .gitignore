@@ -17,6 +17,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+.claude/
 
 # Env & secrets (kalau suatu saat migrasi ke .env)
 .env
