@@ -22,3 +22,5 @@ Disallow: /wp-admin/
 Disallow: /wp-includes/
 
 Sitemap: https://xspectechnology.com/sitemap.xml
+Sitemap: https://sg.xspectechnology.com/sitemap.xml
+Sitemap: https://id.xspectechnology.com/sitemap.xml

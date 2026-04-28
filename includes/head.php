@@ -28,6 +28,14 @@ $__canonical = $__base_url . $__path;
 $__page_title       = isset($title) ? $title : $__brand_full . ' - Excellent After Sales Service';
 $__page_description = isset($meta_description) ? $meta_description : $__brand_full . ' provides excellent after sales service and innovative technology solutions across Southeast Asia.';
 $__page_image       = isset($og_image) ? $og_image : $__base_url . '/img/logo.png';
+
+// Map country name → og:locale (Open Graph) + hreflang code
+$__locale_map = [
+    'Malaysia'  => ['og' => 'en_MY', 'hreflang' => 'en-MY'],
+    'Singapore' => ['og' => 'en_SG', 'hreflang' => 'en-SG'],
+    'Indonesia' => ['og' => 'en_ID', 'hreflang' => 'en-ID'],
+];
+$__og_locale = $__locale_map[$__country_name]['og'] ?? 'en_MY';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,9 +55,16 @@ $__page_image       = isset($og_image) ? $og_image : $__base_url . '/img/logo.pn
     <meta name="description" content="<?php echo htmlspecialchars($__page_description); ?>">
     <meta name="keywords" content="<?php echo htmlspecialchars($__brand_full); ?>, NDT, inspection technology, after sales service, oil and gas, military defence, bio-tech laboratory, medical healthcare">
     <meta name="author" content="<?php echo htmlspecialchars($__brand_full); ?>">
+    <meta name="application-name" content="<?php echo htmlspecialchars($__brand_full); ?>">
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="x1IS14PVAtyYfyswpoxUUs0n2MeJIM8Gjz7T3xj3Wao">
     <link rel="canonical" href="<?php echo htmlspecialchars($__canonical); ?>">
+
+    <!-- Hreflang: link versi multi-country biar Google paham mana yang buat negara mana -->
+    <link rel="alternate" hreflang="en-MY"     href="<?php echo htmlspecialchars('https://xspectechnology.com' . $__path); ?>">
+    <link rel="alternate" hreflang="en-SG"     href="<?php echo htmlspecialchars('https://sg.xspectechnology.com' . $__path); ?>">
+    <link rel="alternate" hreflang="en-ID"     href="<?php echo htmlspecialchars('https://id.xspectechnology.com' . $__path); ?>">
+    <link rel="alternate" hreflang="x-default" href="<?php echo htmlspecialchars('https://xspectechnology.com' . $__path); ?>">
 
     <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
     <meta property="og:type"        content="website">
@@ -58,13 +73,24 @@ $__page_image       = isset($og_image) ? $og_image : $__base_url . '/img/logo.pn
     <meta property="og:description" content="<?php echo htmlspecialchars($__page_description); ?>">
     <meta property="og:image"       content="<?php echo htmlspecialchars($__page_image); ?>">
     <meta property="og:url"         content="<?php echo htmlspecialchars($__canonical); ?>">
-    <meta property="og:locale"      content="en_US">
+    <meta property="og:locale"      content="<?php echo $__og_locale; ?>">
 
     <!-- Twitter Card -->
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:title"       content="<?php echo htmlspecialchars($__page_title); ?>">
     <meta name="twitter:description" content="<?php echo htmlspecialchars($__page_description); ?>">
     <meta name="twitter:image"       content="<?php echo htmlspecialchars($__page_image); ?>">
+
+    <!-- Structured Data (WebSite) — bikin Google nampilin "XSpec [Country]" sebagai site name di SERP -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "<?php echo addslashes($__brand_full); ?>",
+      "alternateName": "XSpec Technology",
+      "url": "<?php echo $__base_url; ?>"
+    }
+    </script>
 
     <!-- Structured Data (Organization) -->
     <script type="application/ld+json">
